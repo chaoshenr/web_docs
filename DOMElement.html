@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root-node">
+        rootText
+        <div class="first-parent">
+            firstText
+            <div class="child-node">
+                childNode
+            </div>
+        </div>
+        <div class="second-parent">
+            secondText
+            <div class="child-node">
+                childNode
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var html = document.documentElement;
+        console.log(html);
+        
+        var rootNode = document.getElementById("root-node");
+        
+        // 父节点：parentNode parentElement
+        var root_parentNode = rootNode.parentNode;
+        console.log(root_parentNode);//body
+
+        var root_parentElement = rootNode.parentElement;
+        console.log(root_parentElement);//body
+        console.log(root_parentNode == root_parentElement) //true
+        
+        // 子节点：childNodes-包含文本节点及标签节点  children 所有子节点，不包含文本节点和标签节点
+        var root_childNodes = rootNode.childNodes;
+        console.log(root_childNodes);//[text, div.first-parent, text, div.second-parent, text]
+
+        var root_children = rootNode.children;
+        console.log(root_children);//[div.first-parent, div.second-parent]
+
+        // 第一个子节点 firstChild - 含文本节点
+        var root_firstChild = rootNode.firstChild;
+        console.log(root_firstChild);
+
+        // 最后一个子节点
+        var root_lastChild = rootNode.lastChild;
+        console.log(root_lastChild);
+
+        // 返回列表项的下一个同胞
+        var root_nextSibling = root_firstChild.nextSibling;
+        console.log(root_nextSibling);
+
+        var root_previousSibling = root_lastChild.previousSibling;
+        console.log(root_previousSibling);
+        
+        // parentNode和parentElement功能一样，childNodes和children功能一样。但是parentNode和childNodes是符合W3C标准的，可以说比较通用。而另外两个只是IE支持，不是标准
+        
+        // 各节点类型由 nodeType判断
+        // 1 元素节点
+        // 2 属性节点
+        // 3 文本节点
+        for(var i = 0; i < root_childNodes.length; i ++) {
+            if(root_childNodes[i].nodeType == 1) {
+                console.log("元素节点");
+                console.log(root_childNodes[i].nodeName);
+            }        
+        }
+    </script>
+</body>
+</html>
