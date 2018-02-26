@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOMOptions</title>
+</head>
+<body>
+    <div id="root_node"></div>
+    <script>
+        var rootNode = document.getElementById('root_node');
+        // 1创建节点
+        var firstNode = document.createElement("div");
+
+        var textNode_1 = document.createTextNode("我是第一个文本节点");
+        var textNode_2 = document.createTextNode("我是第二个文本节点");
+        console.log(typeof textNode_1);//object
+        // firstNode.innerHTML = textNode; //文本节点是个节点对象，不能作为字符串直接使用
+        firstNode.setAttribute("class", "first-node");
+
+        // 2.向节点中子节点（childNodes）尾部（可以是元素节点和文本节点，属性节点）
+        firstNode.appendChild(textNode_1);
+        firstNode.appendChild(textNode_2);
+        
+        // 3.合并父节点的相邻文本节点
+        firstNode.normalize();
+        console.log(firstNode.nodeType);
+        
+        rootNode.appendChild(firstNode);
+        
+        // 4.向节点中某子节点之前插入节点，如果指定子节点为空，则效果等同于appendChild
+        var secondNode = document.createElement("div");
+        secondNode.innerHTML = "我是第二个子节点";
+        secondNode.appendChild(firstNode);
+        rootNode.insertBefore(secondNode, firstNode);
+
+        var thirdNode = document.createElement("p");
+        thirdNode.innerHTML = "我是第三个子节点";
+        rootNode.insertBefore(thirdNode, null);
+
+        // 5.参数为布尔值，参数设为true则进行深复制，会复制nodeA节点及其整个子树；参数为false进行浅复制，只复制nodeA节点；
+        // cloneNode()并不复制js属性，但IE会复制相关事件处理程序
+        var cloneSecondNode = secondNode.cloneNode(true);
+        console.log(cloneSecondNode == secondNode);
+        console.log(typeof cloneSecondNode);
+    </script>
+</body>
+</html>
